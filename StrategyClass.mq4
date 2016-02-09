@@ -71,3 +71,54 @@ class Strategy{
             
          };
 }; 
+
+class BOLLINGERBANDS: public Strategy{
+
+protected:
+   //BollingerBands Parametres :
+  int bandsShift;
+  double deviation;
+public:
+   //BollingerBands Getters :
+   int getBandsShiftt(){return this.bandsShift;};
+   double getDeviation(){return this.deviation;};
+   //BollingerBands Setters :
+   void setBandsShift(int bandsShift){this.bandsShift = bandsShift;};
+   void setDeviation(double deviation){this.deviation = deviation;};
+   //BollingerBands Buy/Sell Signals:
+   bool  buySignal(){
+      return(Open[0]>= iBands(this.symbol,this.timeFrame,this.period,this.deviation,this.bandsShift,PRICE_OPEN,MODE_UPPER,this.shift))
+ 
+   ;}
+   bool  sellSignal(){   
+     return(Close[0] <= iBands(this.symbol,this.timeFrame,this.period,this.deviation,this.bandsShift,PRICE_OPEN,MODE_LOWER,this.shift)  )
+   ;}
+  
+   //BollingerBands Objects Constructors :
+   BOLLINGERBANDS(int period, int bandsShift,double deviation,int timeFrame,string symbole,int MagicNumber):Strategy(timeFrame,symbole,MagicNumber){
+      this.name = "BollingerBands";
+      this.period = period ;
+      this.bandsShift = bandsShift;
+      this.deviation = deviation ;
+   }
+   BOLLINGERBANDS(int period, int bandsShift,double deviation):Strategy(){
+      
+      this.name = "BollingerBands";
+      this.period = period ;
+      this.bandsShift = bandsShift;
+      this.deviation = deviation ;
+   }
+   BOLLINGERBANDS():Strategy(){
+      this.name = "BollingerBands";
+      this.period = 14 ;
+      this.bandsShift = 0;
+      this.deviation = 2 ;
+      this.shift = 0;
+   }
+};
+/**
+*BOLLINGERBANDS *f = new BOLLINGERBANDS();
+*BOLLINGERBANDS *f2 = new BOLLINGERBANDS();
+* you might assign f and f2 with the options you want by using The (Setters) of the Strategy class 
+*
+*/
